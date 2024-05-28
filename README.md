@@ -1,4 +1,4 @@
-# Editor Text folosind Rust a
+# Editor Text folosind Rust
 
 Acesta este un editor de documente făcut cu [Tauri](https://tauri.studio/en/), un framework pentru construirea de aplicații native cu tehnologii web [Codemirror](https://codemirror.net/) și [html2pdf](https://github.com/ilaborie/html2pdf).
 
