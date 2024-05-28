@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/markdown/markdown.min.js"></script>
+        <link rel="stylesheet" href="./styles/main.css" />
+        <meta charset="utf-8" />
+    </head>
+    <body style="background-color: #ececec;">
+        <!-- Wellcome Screen -->
+        <div class="center-div">
+            <div class="paper centered">
+                <div class="index-actions actions">
+                    <img
+                        class="language-select"
+                        style="padding: 0 !important; margin: 0 !important"
+                        src="icons/translate.svg"
+                    />
+                    <select id="language-select-option">
+                        <option value="ro">English</option>
+                        <option value="en">Romanian</option>
+                    </select>
+                </div>
+                <h1
+                    class="bilanguage"
+                    data-en="Document Editor"
+                    data-ro="Editor Document"
+                ></h1>
+                <p
+                    class="bilanguage"
+                    data-en="Wellcome!"
+                    data-ro="Bine ai venit!"
+                ></p>
+                <p
+                    class="bilanguage"
+                    data-en="This is an editor that uses the descriptive language Markdown."
+                    data-ro="Acesta este un editor care folosește limbajul descriptiv Markdown."
+                ></p>
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/1200px-Markdown-mark.svg.png"
+                    alt="Markdown Logo"
+                    width="200"
+                />
+                <p
+                    class="bilanguage"
+                    data-en="How does it work?"
+                    data-ro="Cum funcționează?"
+                ></p>
+                <p
+                    class="bilanguage"
+                    data-en="In the editor you can write text using the Markdown format, and in the preview you will see how the exported text will look. You can export the edited text in PDF format."
+                    data-ro="În editor poți scrie text folosind formatul Markdown, iar în previzualizare vei vedea cum va arăta textul ropă ce va fi exportat. Poți să exporți textul editat în format PDF."
+                ></p>
+                <br />
+                <div id="toolbar-m">
+                    <button
+                        onclick="selectFileDialogHome()"
+                        class="bilanguage generic-button"
+                        data-en="Open File"
+                        data-ro="Deschide Fișier"
+                    ></button>
+                    <button
+                        onclick="newFileDialogHome()"
+                        class="bilanguage generic-button"
+                        data-en="New File"
+                        data-ro="Fișier Nou"
+                    ></button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        function selectFileDialogHome() {
+            localStorage.setItem("open", true);
+            window.location.href = "editor.html";
+        }
+        function newFileDialogHome() {
+            localStorage.setItem("open", false);
+            window.location.href = "editor.html";
+        }
+    </script>
+    <script src="./js/language.js"></script>
+    <style>
+        h1 {
+            padding-top: 10px;
+        }
+        .paper {
+            background-color: #e7e7e7;
+            padding: 2rem;
+            box-shadow: rgba(50, 50, 93, 0.041) 0px 13px 27px -5px,
+                rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+            border-radius: 5px;
+            border: 1px solid #d0d0d0;
+        }
+    </style>
+</html>

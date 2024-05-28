@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap");
+
+body {
+    font-family: "Inter", "Noto Color Emoji", sans-serif;
+    font-size: 14px;
+}
+code {
+    font-family: "Fira Mono", monospace !important;
+    font-weight: 700;
+    color: #134da5;
+}
+img {
+    border-radius: 8px;
+}
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-size: 3rem;
+    margin-top: 0px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0.3rem;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1.5rem;
+}
+h4 {
+    font-size: 1.25rem;
+}
+h5 {
+    font-size: 1rem;
+}
+h6 {
+    font-size: 0.75rem;
+}

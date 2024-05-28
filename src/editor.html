@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/markdown/markdown.min.js"></script>
+        <link rel="stylesheet" href="./styles/main.css" />
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <!-- Editor Screen -->
+        <div id="header">
+            <div class="menubar">
+                <a class="dma" href="/">
+                    <img id="home-icon" src="icons/256.png" />
+                </a>
+                <div id="home">
+                    <h5 id="title" class="button">New Document</h5>
+                    <div id="home-actions">
+                        <button
+                            id="interact-file"
+                            class="button bilanguage"
+                            data-en="File"
+                            data-ro="Fișier"
+                        ></button>
+                        <div id="file-dropdown">
+                            <button
+                                onclick="newFile()"
+                                class="bilanguage button"
+                                data-en="New"
+                                data-ro="Nou"
+                            ></button
+                            ><br />
+                            <button
+                                onclick="selectFileDialog()"
+                                class="bilanguage button"
+                                data-en="Open"
+                                data-ro="Deschide"
+                            ></button
+                            ><br />
+                            <button
+                                onclick="quicksaveFile()"
+                                class="bilanguage button"
+                                data-en="Save"
+                                data-ro="Salvează"
+                            ></button
+                            ><br />
+                            <button
+                                onclick="saveFileDialog()"
+                                class="bilanguage button"
+                                data-en="Save As"
+                                data-ro="Salvează Ca"
+                            ></button
+                            ><br />
+                            <button id="btn-export" class="button">Export</button>
+                        </div>
+                        <div id="cv-dropdown">
+                            <div class="elm">
+                                <button class="play interact-video" id="https://www.youtube.com/embed/tKKnVkDryXA">
+                                    <img src="icons/play.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                    onclick="openTemplate('cv_RO.md')"
+                                    class="button"
+                                >CV Standard RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="play interact-video" id="https://www.youtube.com/embed/9lFNlYgP6Zw">
+                                    <img src="icons/play.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('cv_EN.md')"
+                                class="button"
+                                >CV Standard EN</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="play interact-video" id="https://www.youtube.com/embed/DFYUgr_UAD4">
+                                    <img src="icons/play.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('cv_soferRO.md')"
+                                class="button"
+                                >CV Sofer RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="play interact-video" id="https://www.youtube.com/embed/777D15HdCbs">
+                                    <img src="icons/play.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('cv_soferEN.md')"
+                                class="button"
+                                >CV Driver EN</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="play interact-video" id="https://www.youtube.com/embed/OOb-Fka90Xw">
+                                    <img src="icons/play.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('cv_studentRO.md')"
+                                class="button"
+                                >CV Student RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="play interact-video" id="https://www.youtube.com/embed/T1A3qwOXqec">
+                                    <img src="icons/play.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('cv_studentEN.md')"
+                                class="button"
+                                >CV Student EN</button
+                                ><br />
+                            </div>
+                        </div>
+                        <div id="letter-dropdown">
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-facultateRO.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-facultateRO.md')"
+                                class="button"
+                                >Scrisoare de Intenție - Licienta RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-facultateEN.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-facultateEN.md')"
+                                class="button"
+                                >Letter of intent - Bachelor's EN</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-masterRO.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-masterRO.md')"
+                                class="button"
+                                >Scrisoare de Intenție - Master RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-masterEN.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-masterEN.md')"
+                                class="button"
+                                >Letter of intent - Master's EN</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-scurtaRO.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-scurtaRO.md')"
+                                class="button"
+                                >Scrisoare de Intenție - Scurt RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-scurtaEN.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-scurtaEN.md')"
+                                class="button"
+                                >Letter of intent - Short EN</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-wordRO.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-wordRO.md')"
+                                class="button"
+                                >Scrisoare de Intenție - Lung RO</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-wordEN.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-wordEN.md')"
+                                class="button"
+                                >Letter of intent - Long EN</button
+                                ><br />
+                            </div>
+                            <div class="elm">
+                                <button class="show interact-image" id="images/scrisoare-de-intentie-facultateRect.png">
+                                    <img src="icons/insert_image.svg"/>
+                                </button>
+                                <p style="color:#aaa;">||</p>
+                                <button
+                                onclick="openTemplate('scrisoare-de-intentie-facultateRect.md')"
+                                class="button"
+                                >Scrisoare de Intenție - Rector</button
+                                ><br />
+                            </div>
+                        </div>
+                        <p
+                            id="interact-cv"
+                            class="button bilanguage"
+                            data-en="CV's"
+                            data-ro="CV-uri"
+                        ></p>
+                        <p
+                            id="interact-letter"
+                            class="button bilanguage"
+                            data-en="Letters"
+                            data-ro="Scrisori"
+                        ></p>
+                        <p
+                            id="interact-about"
+                            class="bilanguage button"
+                            data-en="About"
+                            data-ro="Despre"
+                        ></p>
+
+                    </div>
+                </div>
+                <div id="main-actions">
+                    <img
+                        class="language-select themed-icon"
+                        src="icons/translate.svg"
+                    />
+                    <select id="language-select-option">
+                        <option value="ro"><p>English</p></option>
+                        <option value="en"><p>Română</p></option>
+                    </select>
+                    <img
+                        class="theme-select themed-icon"
+                        id="change-theme"
+                        src="icons/dark_mode.svg"
+                    />
+                    <div id="btn-preview">
+                        <img
+                            class="preview-icon"
+                            style="margin-top: 1px"
+                            src="icons/preview.svg"
+                        />
+                        <p>Preview</p>
+                    </div>
+                </div>
+            </div>
+            <div class="menubar bottom-bar">
+                <div id="buttons">
+                    <button class="btn-icon" id="btn-bold">
+                        <img src="icons/format_bold.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-italic">
+                        <img src="icons/format_italic.svg" />
+                    </button>
+                    <button class="abl btn-icon" id="btn-strike">
+                        <img src="icons/strikethrough.svg" />
+                    </button>
+                    <p class="delimitator">|</p>
+                    <button class="btn-icon" id="btn-image">
+                        <img src="icons/insert_image.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-code-block">
+                        <img src="icons/code_blocks.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-code">
+                        <img src="icons/code_black.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-quote">
+                        <img src="icons/format_quote.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-link">
+                        <img src="icons/insert_link.svg" />
+                    </button>
+                    <p class="delimitator">|</p>
+                    <button class="btn-icon" id="btn-list-bullet">
+                        <img src="icons/format_list_bulleted.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-list-numbered">
+                        <img src="icons/format_list_numbered.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-align-left">
+                        <img src="icons/format_align_left.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-align-center">
+                        <img src="icons/format_align_center.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-align-right">
+                        <img src="icons/format_align_right.svg" />
+                    </button>
+                    <button class="btn-icon" id="btn-align-justify">
+                        <img src="icons/format_align_justify.svg" />
+                    </button>
+                </div>
+            </div>
+            <div id="info">
+                <!-- <p>Cuvinte: <span id="word-count">0</span></p> -->
+                <p class="bilanguage" data-en=" Words" data-ro=" Cuvinte">
+                    <span id="word-count">0</span>
+                </p>
+            </div>
+            <div id="popup">
+                <p
+                    class="bilanguage"
+                    data-en="📝 The PDF document has been saved!"
+                    data-ro="📝 Documentul PDF a fost salvat!"
+                ></p>
+            </div>
+        </div>
+        <div id="youtube" class="examples">
+            <h2
+                class="button bilanguage"
+                data-en="Example for CV"
+                data-ro="Exemplu pentru CV"
+            ></h2>
+            <iframe id="ytplayer" type="text/html" width="640" height="360"
+            src=""
+            frameborder="0" modestbranding=1&iv_load_policy=3" allowfullscreen></iframe>
+            <button class="close-button">
+                <img class="close-icon" src="icons/close.svg" />
+            </button>
+        </div>
+        <div id="letters" class="examples longer">
+            <h2
+                class="button bilanguage"
+                data-en="Example for Letter"
+                data-ro="Exemplu pentru Scrisoare"
+            ></h2>
+            <img width="1000" >
+            <button class="close-button">
+                <img class="close-icon" src="icons/close.svg" />
+            </button>
+        </div>
+        <div id="about">
+            <img class="main-pic" src="icons/256.png" />
+            <button class="close-button">
+                <img class="close-icon" src="icons/close.svg" />
+            </button>
+            <h2>About</h2>
+            <p
+            class="bilanguage"
+            data-en="Markdown Editor is a simple editor that uses the descriptive
+            language Markdown. It is a simple and easy to use editor that
+            allows you to write text using the Markdown format and export it
+            in PDF format."
+            data-ro="Markdown Editor este un editor simplu care folosește limbajul descriptiv Markdown. Este un editor simplu și ușor de utilizat, care vă permite să scrieți text folosind formatul Markdown și să îl exportați în format PDF."
+            ></p>
+            <br />
+            <p>Version: 1.9.1</p>
+        </div>
+        <div id="centered">
+            <div id="preview"></div>
+            <textarea id="editor"></textarea>
+        </div>
+    </body>
+    <script type="text/javascript" src="./js/export.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/language.js"></script>
+    <script type="text/javascript" src="./js/utils.js"></script>
+</html>

@@ -1,0 +1,98 @@
+{
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "devPath": "../src",
+    "distDir": "../src",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "Editor Documente",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "dialog": {
+        "all": true,
+        "ask": true,
+        "confirm": true,
+        "message": true,
+        "open": true,
+        "save": true
+      },
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      },
+      "fs": {
+        "all": true,
+        "copyFile": true,
+        "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "scope": ["$TEMP/*", "$APP/*", "$RESOURCE/*", "$RESOURCE/css_themes/*"],
+        "writeFile": true
+      },
+      "path": {
+        "all": true
+      },
+      "os": {
+        "all": true
+      },
+      "protocol": {
+        "all": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "icon": [
+        "icons/32.png",
+        "icons/64.png",
+        "icons/128.png",
+        "icons/256.png",
+        "icons/icon.ico"
+      ],
+      "resources": [
+        "css_themes/default.css",
+        "templates/cv_RO.md",
+        "templates/cv_EN.md",
+        "templates/cv_soferRO.md",
+        "templates/cv_soferEN.md",
+        "templates/cv_studentRO.md",
+        "templates/cv_studentEN.md",
+        "templates/scrisoare-de-intentie-facultateEN.md",
+        "templates/scrisoare-de-intentie-facultateRO.md",
+        "templates/scrisoare-de-intentie-masterEN.md",
+        "templates/scrisoare-de-intentie-masterRO.md",
+        "templates/scrisoare-de-intentie-scurtaEN.md",
+        "templates/scrisoare-de-intentie-scurtaRO.md",
+        "templates/scrisoare-de-intentie-wordEN.md",
+        "templates/scrisoare-de-intentie-wordRO.md",
+        "templates/scrisoare-de-intentie-facultateRect.md"
+      ],
+      "identifier": "com.markdown-editor.dev",
+      "targets": "all"
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Editor Documente",
+        "width": 900,
+        "height": 1600,
+        "maximized": true
+      }
+    ]
+  }
+}
