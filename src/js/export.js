@@ -1,7 +1,22 @@
 async function exportMain(landscape) {
     document.getElementById("file-dropdown").style.display = "none";
-    // This workaround seems to work for now.
-    document.getElementById("preview").innerHTML = marked(editor.getValue());
+
+    let editor_value = editor.getValue();
+
+    // Fix new line to be more intuitive
+    editor_value = editor_value.replace(/^\s*[\r\n]+/gm, "\n</br>");
+    editor_value = editor_value.replace(/---\s*[\r\n]+/gm, "---");
+    editor_value = editor_value.replace(
+        /<\/br>\s*---\s*<\/br>/gm,
+        "\n---\n",
+    );
+
+    let renderd = marked(editor_value);
+
+    // Fix links opening in the program itself instead of the browser
+    renderd = renderd.replace(/<a/g, '<a target="_blank"');
+
+    document.getElementById("preview").innerHTML = renderd;
 
     // We can insert CSS by writing a diferent file to the temp directory and then referencing it in the HTML file.
     const css = await saveCSS("css_themes/default.css");
