@@ -9,7 +9,7 @@ fn main() {
 }
 
 #[tauri::command]
-fn generate_pdf(landscape: bool, input: &str, output: &str) {
+async fn generate_pdf(landscape: bool, input: &str, output: &str) -> Result<String, ()> {
     // Import the necessary modules
     use html2pdf::html_to_pdf;
     use headless_chrome::types::PrintToPdfOptions;
@@ -52,9 +52,12 @@ fn generate_pdf(landscape: bool, input: &str, output: &str) {
     let result = html_to_pdf(input_path, output_path, pdf_options, launch_options, wait_duration);
 
     match result {
-        Ok(()) => println!("PDF generated successfully!"),
+        Ok(()) => Ok("PDF generated successfully!".to_string()),
         // Print the error if the PDF generation fails
-        Err(err) => eprintln!("Error: {:?}", err),
+        Err(err) => {
+            println!("Error: {}", err);
+            Err(())
+        }
     }
 }
 

@@ -79,7 +79,7 @@ async function saveTempDir(landscape, html) {
         createDataFile();
 
         // Invoke the command
-        invoke("generate_pdf", {
+        await invoke("generate_pdf", {
             landscape: landscape,
             input: tempFilePath,
             output: await selection,
