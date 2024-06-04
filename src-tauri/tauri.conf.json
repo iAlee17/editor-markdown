@@ -75,7 +75,7 @@
         "templates/scrisoare-de-intentie-wordRO.md",
         "templates/scrisoare-de-intentie-facultateRect.md"
       ],
-      "identifier": "com.markdown-editor.dev",
+      "identifier": "com.textflow.dev",
       "targets": "all"
     },
     "security": {
