@@ -147,6 +147,10 @@ iframe {
     display: flex;
     justify-content: center;
 }
+@keyframes ani{
+	0%{background-position: 0 0;}
+	100%{background-position: 100vw 0;}
+}
 #preview {
     margin-top: 48px;
     display: none;
