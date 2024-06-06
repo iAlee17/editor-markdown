@@ -49,3 +49,48 @@ h5 {
 h6 {
     font-size: 0.75rem;
 }
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+right {
+    display: flex;
+    justify-content: flex-end;
+}
+justify {
+    display: flex;
+    text-align: justify;
+}
+blockquote {
+    border-left:4px solid #317cde ;
+    padding-left: 16px;
+}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width: 50%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    background-color: transparent; /* Change the background-color of table here */
+    text-align: left; /* Change the text-alignment of table here */
+}
+thead {
+    background: #1616160a;
+}
+th {
+    font-weight: bold;
+    border: 1px solid #cccccc; /* Change the border-color of heading here */
+    padding: 8px;
+}
+td {
+    border: 1px solid #cccccc; /* Change the border-color of cells here */
+    padding: 8px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #1616160a;
+}

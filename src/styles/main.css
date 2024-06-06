@@ -147,10 +147,6 @@ iframe {
     display: flex;
     justify-content: center;
 }
-@keyframes ani{
-	0%{background-position: 0 0;}
-	100%{background-position: 100vw 0;}
-}
 #preview {
     margin-top: 48px;
     display: none;
@@ -179,7 +175,6 @@ iframe {
 .CodeMirror-lines {
     padding: 60px;
 }
-
 .CodeMirror {
     overflow: hidden;
     font-size: 16px !important;
@@ -189,7 +184,7 @@ iframe {
     border-radius: 4px;
     box-shadow: 0px 0px 2px 1px #15151533;
 }
-.CodeMirror-selected {background-color: #c6d8f7 !important;}
+.CodeMirror-selected { background-color: #c6d8f7 !important;}
 .CodeMirror-scroll {
     overflow: hidden !important;
 }
@@ -197,9 +192,11 @@ iframe {
     font-size: 18px;
 }
 .cm-s-default {
+    z-index: 0;
     font-family: "Inter", sans-serif;
 }
 .cm-s-default .cm-header {
+    z-index: 0;
     color: black;
     font-weight: normal;
     font-size: 24px;
@@ -417,8 +414,10 @@ iframe {
     font-size: 13px;
 }
 #info p {
-    /* font-weight: bold; */
-    padding: 10px 10px;
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    font-weight: 600;
+    padding: 8px 16px;
     border-radius: 4px;
 }
 #popup {
@@ -698,4 +697,33 @@ button {
 }
 .dark-mode button {
     color: var(--text-color-dark);
+}
+blockquote {
+    border-left:4px solid #317cde ;
+    padding-left: 16px;
+}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width: 50%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    background-color: transparent; /* Change the background-color of table here */
+    text-align: left; /* Change the text-alignment of table here */
+}
+thead {
+    background: #1616160a;
+}
+th {
+    font-weight: bold;
+    border: 1px solid #cccccc; /* Change the border-color of heading here */
+    padding: 8px;
+}
+td {
+    border: 1px solid #cccccc; /* Change the border-color of cells here */
+    padding: 8px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #1616160a;
 }
