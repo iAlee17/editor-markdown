@@ -1,4 +1,4 @@
-async function exportMain(landscape) {
+async function exportMain() {
     document.getElementById("file-dropdown").style.display = "none";
 
     let editor_value = editor.getValue();
@@ -22,8 +22,7 @@ async function exportMain(landscape) {
     const css = await saveCSS("css_themes/default.css");
 
     // Get the preview element
-    var element = document.getElementById("preview");
-    // Combine to form a valid HTML file
+    var preview = document.getElementById("preview");
 
     // Define HTML boilerplate
     html = `
@@ -36,13 +35,15 @@ async function exportMain(landscape) {
     </style>
     </head>
     <body>
-    ${element.outerHTML}
+    ${preview.outerHTML}
     </body>
     </html>
     `;
 
+    html = html.replace("style=\"display: none;\"", "");
+
     // Store the HTML file in the temp directory
-    saveTempDir(landscape, html);
+    saveTempDir(false, html);
 }
 
 async function saveTempDir(landscape, html) {

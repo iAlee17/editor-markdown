@@ -16,6 +16,7 @@
 - [x] theme switcher
 - [x] make a save as button
 - [x] templates button
+- [x] blockcode bar in CSS
 
 ## Improvements
 - [x] bold/italic text better

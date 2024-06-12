@@ -8,7 +8,6 @@ const { tempdir } = window.__TAURI__.os;
 
 // Establsih global variables
 var PREVIEW_MODE = false;
-var landscape = false;
 
 // Enable hard breaks for the markdown renderer
 marked.setOptions({
@@ -63,7 +62,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
 
 // Generate HTML to send to the PDF renderer.
 document.getElementById("btn-export").addEventListener("click", function () {
-    exportMain(landscape);
+    exportMain();
 });
 
 // Create codemirror editor
