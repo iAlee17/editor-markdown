@@ -1,17 +1,17 @@
-// The default language is  'en' English
+// limba implicită este 'en' English
 var currentlanguage = "ro";
 
-// TODO: Persistent language change
-// Get localstorage item
-// Check if empty -> default to "en"
+// TODO: Schimbarea limbii persistente
+// Obținem elementul localstorage
+// Verificam dacă este gol -> implicit la "en"
 
-// Inititalise script by setting language to curent setting in localstorage
-// When changing theme, take the current one and set it to be the oposite
+// Inițializam scriptul prin setarea limbajului pentru setarea curentă în localstorage
+// Când schimbam tema, luam pe cea curentă și o setam să fie opusul
 
-// This function needs to be called once to work
+// Această funcție trebuie chemată o dată la lucru
 changelang("ro");
 
-// Get the value of selected language from <select> element
+// Obținem valoarea limbii din elementul <select>
 document
     .getElementById("language-select-option")
     .addEventListener("change", function () {
@@ -20,7 +20,7 @@ document
         changelang();
     });
 
-// BUG: Language is not respected between pages
+// BUG: Limbajul nu este respectat între pagini
 function changelang(lang) {
     console.log(lang);
 

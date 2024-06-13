@@ -1,7 +1,7 @@
 dark_mode = false;
 const body = document.body;
 
-// Change Theme
+// Schimbarea temei
 var change_theme = document.getElementById("change-theme");
 change_theme.onclick = function () {
     if (dark_mode == true) {
@@ -15,7 +15,7 @@ change_theme.onclick = function () {
     }
 };
 
-// Open file dialog
+// deschide fereastra file
 document.getElementById("interact-file").addEventListener("click", function () {
     document.getElementById("file-dropdown").style.display = "block";
 });
@@ -30,7 +30,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// Open CV dialog
+// deschide fereastra CV
 document
     .getElementById("interact-cv")
     .addEventListener("click", function () {
@@ -47,7 +47,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// Open Letter interface
+// deschide fereastra scrisori
 document
     .getElementById("interact-letter")
     .addEventListener("click", function () {
@@ -64,50 +64,50 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// Open about dialog
+// deschide fereastra about
 document
     .getElementById("interact-about")
     .addEventListener("click", function () {
         document.getElementById("about").style.display = "block";
     });
 
-// Open youtube dialog
+// deschide youtube dialog
 const youtubeButtons = document.getElementsByClassName("interact-video");
 
 for (let i = 0; i < youtubeButtons.length; i++) {
     youtubeButtons[i].addEventListener("click", function (event) {
-        // Get interact-video element that it is clicked on and select the closest button
+        // obține elementul interactiv-video pe care este făcut click și selecteaza cel mai apropiat buton
         const button = event.target.closest("button");
         const youtube = document.getElementById("youtube");
         const iframe = youtube.getElementsByTagName("iframe")[0];
         const formatDropdown = document.getElementById("cv-dropdown");
 
-        // Set src attribute of iframe
+        // setam atributul src al iframe
         youtube.style.display = "flex";
         iframe.src = button.id;
         formatDropdown.style.display = "none";
     });
 }
 
-// Open image dialog
+// deschide dialogul cu imagini
 const imageButtons = document.getElementsByClassName("interact-image");
 
 for (let i = 0; i < imageButtons.length; i++) {
     imageButtons[i].addEventListener("click", function (event) {
-        // Get interact-video element that it is clicked on and select the closest button
+        // obține elementul interactiv-imagini pe care este făcut click și selecteaza cel mai apropiat buton
         const button = event.target.closest("button");
         const letters = document.getElementById("letters");
         const image = letters.getElementsByTagName("img")[0];
         const formatDropdown = document.getElementById("letter-dropdown");
 
-        // Set src attribute of iframe
+        // setam atributul src al iframe
         letters.style.display = "flex";
         image.src = button.id;
         formatDropdown.style.display = "none";
     });
 }
 
-// Get all close button elements and add event listener
+// obține toate elementele de închidere a butonului și adăuga event listener
 const closeButtons = document.getElementsByClassName("close-button");
 for (let i = 0; i < closeButtons.length; i++) {
     closeButtons[i].addEventListener("click", function () {

@@ -3,7 +3,7 @@ async function exportMain() {
 
     let editor_value = editor.getValue();
 
-    // Fix new line to be more intuitive
+    // fixeaza o linie nouă pentru a fi mai intuitivă
     editor_value = editor_value.replace(/^\s*[\r\n]+/gm, "\n</br>");
     editor_value = editor_value.replace(/---\s*[\r\n]+/gm, "---");
     editor_value = editor_value.replace(
@@ -13,18 +13,18 @@ async function exportMain() {
 
     let renderd = marked(editor_value);
 
-    // Fix links opening in the program itself instead of the browser
+    // fixeaza deschiderea link-urilor în program în locul browserului
     renderd = renderd.replace(/<a/g, '<a target="_blank"');
 
     document.getElementById("preview").innerHTML = renderd;
 
-    // We can insert CSS by writing a diferent file to the temp directory and then referencing it in the HTML file.
+    // putem insera CSS scriind un fișier diferit în directorul temp și apoi făcând referire la acesta în fișierul HTML
     const css = await saveCSS("css_themes/default.css");
 
-    // Get the preview element
+    // obtinem elementul de preview
     var preview = document.getElementById("preview");
 
-    // Define HTML boilerplate
+    // definim HTML boilerplate
     html = `
     <!DOCTYPE html>
     <html>
@@ -42,7 +42,7 @@ async function exportMain() {
 
     html = html.replace("style=\"display: none;\"", "");
 
-    // Store the HTML file in the temp directory
+    // Stocam fișierul HTML în directorul temp
     saveTempDir(false, html);
 }
 
@@ -51,7 +51,7 @@ async function saveTempDir(landscape, html) {
         const tempDirPath = await tempdir();
         let tempFilePath = `${tempDirPath}file.html`;
 
-        // Open a file dialog
+        // deschidem un dialog de fișier
         const selection = save({
             filters: [
                 {
@@ -61,7 +61,7 @@ async function saveTempDir(landscape, html) {
             ],
         });
 
-        // Save HTML file
+        // salvam fila HTML
         const createDataFile = async () => {
             try {
                 await writeFile(
@@ -76,22 +76,22 @@ async function saveTempDir(landscape, html) {
             } catch (err) {
                 console.error(err);
             }
-        }; // Some boring error handling.
+        }; // o manipulare a erorilor plictisitoare
         createDataFile();
 
-        // Invoke the command
+        // invoca comanda
         await invoke("generate_pdf", {
             landscape: landscape,
             input: tempFilePath,
             output: await selection,
         })
             .then((_res) => {
-                // Show a popup for 3 seconds to indicate that the file has been exported.
+                // afișeaza un pop-up timp de 3 secunde pentru a indica faptul că fișierul a fost exportat
                 document.getElementById("popup").style.display = "block";
                 document.getElementById("popup").style.opacity = "1";
                 document.getElementById("popup").style.transition = "none";
 
-                // Wait 1 second
+                // asteapta o secunda
                 setTimeout(function () {
                     document.getElementById("popup").style.transition =
                         "opacity 1s ease-out";
@@ -102,11 +102,11 @@ async function saveTempDir(landscape, html) {
                 }, 3000);
             })
             .catch((err) => {
-                // Show error in console
+                // arata erorile in consola
                 console.error("Error:", err);
             });
     } catch (error) {
-        // Show error in console
+        // arata erorile in consola
         console.error("Error:", error);
     }
 }
@@ -114,10 +114,10 @@ async function saveTempDir(landscape, html) {
 async function saveCSS(css_path, _callback) {
     try {
         const content = await invoke("read_resource", { name: css_path });
-        return content; // Assuming content is a string
+        return content; // presupunerea că conținutul este un string
     } catch (error) {
-        // Show error in console
+        // arata erorile in consola
         console.error("Error:", error);
-        return "An error occurred"; // Return a string indicating an error occurred
+        return "An error occurred"; // returneaza un string indicand o eroare
     }
 }

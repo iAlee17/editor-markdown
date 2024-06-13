@@ -1,4 +1,4 @@
-// Import necessary modules from tauri
+// Import module necesare din tauri
 const { open } = window.__TAURI__.dialog;
 const { save } = window.__TAURI__.dialog;
 const { readTextFile } = window.__TAURI__.fs;
@@ -6,10 +6,10 @@ const { writeFile, writeTextFile, BaseDirectory } = window.__TAURI__.fs;
 const { invoke } = window.__TAURI__.tauri;
 const { tempdir } = window.__TAURI__.os;
 
-// Establsih global variables
+// Stabilește variabile globale
 var PREVIEW_MODE = false;
 
-// Enable hard breaks for the markdown renderer
+// Activeaza hard breaks pentru render-ul de markdown
 marked.setOptions({
     breaks: true,
 });
@@ -19,7 +19,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
     if (PREVIEW_MODE) {
         PREVIEW_MODE = false;
 
-        // get all elemetns with class "btn-edit" and remove the class inverted
+        // obțineți toate elemetele cu clasa "btn-edit" și eliminați clasa inversată
         const btnIconElements = document.querySelectorAll(".btn-icon");
         for (const element of btnIconElements) {
             element.classList.remove("inverted");
@@ -31,7 +31,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
     } else {
         PREVIEW_MODE = true;
 
-        // Change button style
+        // Schimba stilul butonului
         const btnIconElements = document.querySelectorAll(".btn-icon");
         for (const element of btnIconElements) {
             element.classList.add("inverted");
@@ -51,7 +51,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
 
         let renderd = marked(editor_value);
 
-        // Fix links opening in the program itself instead of the browser
+        // Fix links opening în program în sine în locul browserului
         renderd = renderd.replace(/<a/g, '<a target="_blank"');
 
         document.getElementById("preview").innerHTML = renderd;
@@ -60,7 +60,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
     }
 });
 
-// Generate HTML to send to the PDF renderer.
+// Generați HTML pentru a trimite la PDF renderer.
 document.getElementById("btn-export").addEventListener("click", function () {
     exportMain();
 });
@@ -78,7 +78,7 @@ editor.setSize("800", "100%");
 
 var data = localStorage.getItem("open");
 
-// check if data is true and select file
+// verifica dacă datele sunt adevărate și selecteaza fișierul
 if (data == "true") {
     selectFileDialog();
     localStorage.setItem("open", false);
@@ -97,7 +97,7 @@ function selectFileDialog() {
         ],
     });
 
-    // Read selected file
+    // Citeste fișierul selectat
     selection
         .then((result) => {
             sessionStorage.setItem("opened_file_path", result);
@@ -106,7 +106,7 @@ function selectFileDialog() {
                 .then((response) => {
                     PREVIEW_MODE = false;
 
-                    // File name to title
+                    // Nume fișier la titlu
                     var filename = result.split("\\").pop().split("/").pop();
                     document.getElementById("title").innerHTML = filename;
 
@@ -128,11 +128,11 @@ function selectFileDialog() {
 
 // Open Template
 function openTemplate(template_path) {
-    // Open file from resoruces with given name
+    // Deschide fișierul de la resoruces cu numele dat
     async function openTemplate() {
         try {
             const content = await invoke("read_resource", { name: "templates/" + template_path });
-            return content; // Assuming content is a string
+            return content; // Presupunerea că conținutul este un string
         } catch (error) {
             // Show error in console
             console.error("Error:", error);
@@ -142,7 +142,7 @@ function openTemplate(template_path) {
 
     let template = openTemplate();
 
-    // Replace the editor contents with the contents of the file
+    // inlocuiți conținutul editorului cu conținutul fișierului
     template
         .then((response) => {
             document.getElementById("btn-preview").classList.remove("btn-edit");
@@ -160,18 +160,18 @@ function openTemplate(template_path) {
 // Quciksave file
 function quicksaveFile() {
     document.getElementById("file-dropdown").style.display = "none";
-    // Check if the file has been saved before
+    // Verifica dacă fișierul a fost salvat înainte
     if (!sessionStorage.getItem("opened_file_path") ) {
         saveFileDialog();
         return;
     }
-    // Check if session storage is empty string
+    // verifica dacă stocarea sesiunii este un string
     if (sessionStorage.getItem("opened_file_path") == "null") {
         saveFileDialog();
         return;
     }
 
-    // Write file to location selected
+    // Scrie fișierul în locația selectată
     const promise = writeTextFile({
         path: sessionStorage.getItem("opened_file_path"),
         contents: editor.getValue(),
@@ -197,11 +197,11 @@ function saveFileDialog() {
         ],
     });
 
-    // Read selected file
+    // Citeste fișierul selectat
     selection
         .then((result) => {
-            // `result` is the path chosen by the user
-            // Store the file path in the sessionStorage
+            // `result` este calea aleasă de utilizator
+            // Stocheaza calea fișierului în sessionStorage
 
             sessionStorage.setItem("opened_file_path", result);
 
@@ -213,7 +213,7 @@ function saveFileDialog() {
                 contents: editor.getValue(),
                 directory: BaseDirectory.Current,
             });
-            // Write file to location selected
+            // Scrie fișierul în locația selectată
             promise
                 .then(() => {
                 })
@@ -226,11 +226,11 @@ function saveFileDialog() {
         });
 }
 
-// BUG: The button doesen't work if you are in preview mode
+// BUG: Butonul nu funcționează dacă sunteți în preview mode
 function newFile() {
     document.getElementById("title").innerHTML = "New Document";
     document.getElementById("file-dropdown").style.display = "none";
-    // Delete everythin from the opened editor
+    // Șterge tot din editor
     editor.setValue("");
     sessionStorage.setItem("opened_file_path", "null");
 }
@@ -249,9 +249,9 @@ editor.addKeyMap({
     },
 });
 
-// Generic formating algorithm for bold, italic, etc.
+// Algoritm de formare generic pentru bold, italic, etc.
 function genericFormat(editor, string, length) {
-    // Initialize variables
+    // Inițializeaza variabilele
     var cursor = editor.getCursor();
     var word = editor.findWordAt(cursor);
     var word_content = editor.getRange(word.anchor, word.head);
@@ -283,8 +283,8 @@ function genericFormat(editor, string, length) {
         }
     }
 
-    // Check if the selection has some formating already applied to avoid adding it twice,
-    // esspecially when the cursor is at the end of the word
+    // Verifica dacă selecția are o anumită formatare deja aplicată pentru a evita adăugarea acesteia de două ori,
+    // mai ales atunci când cursorul este la sfârșitul cuvântului
     if (
         extendedWordText.startsWith(string) == false &&
         extendedWordText.endsWith(string) == true
@@ -299,7 +299,7 @@ function genericFormat(editor, string, length) {
     }
 
     // Handle on cursor
-    // Add or remove characters
+    // Adăuga sau elimina caractere
     if (
         extendedWordText.startsWith(string) &&
         extendedWordText.endsWith(string)
@@ -321,52 +321,52 @@ function genericFormat(editor, string, length) {
 
 // Bold
 document.getElementById("btn-bold").addEventListener("click", function () {
-    // Call generic formating algorithm for italic
+    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "**", 2);
 });
 
 editor.addKeyMap({
     "Ctrl-B": function (editor) {
-        // Call generic formating algorithm for italic
+        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "**", 2);
     },
 });
 
 // Italic
 document.getElementById("btn-italic").addEventListener("click", function () {
-    // Call generic formating algorithm for italic
+    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "*", 1);
 });
 
 editor.addKeyMap({
     "Ctrl-I": function (editor) {
-        // Call generic formating algorithm for italic
+        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "*", 1);
     },
 });
 
 // Code
 document.getElementById("btn-code").addEventListener("click", function () {
-    // Call generic formating algorithm for italic
+    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "`", 1);
 });
 
 editor.addKeyMap({
     "Ctrl-`": function (editor) {
-        // Call generic formating algorithm for italic
+        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "`", 1);
     },
 });
 
 // Strikethrough
 document.getElementById("btn-strike").addEventListener("click", function () {
-    // Call generic formating algorithm for italic
+    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "~~", 2);
 });
 
 editor.addKeyMap({
     "Ctrl-Alt-S": function (editor) {
-        // Call generic formating algorithm for italic
+        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "~~", 2);
     },
 });
@@ -440,9 +440,9 @@ function blockquote(editor) {
     var cursor = editor.getCursor();
     var line = editor.getLine(cursor.line);
 
-    // Remove blockquote if it already exists
+    // Elimina  blockquote dacă există deja
     if (line.startsWith("> ")) {
-        // Remove the first two characters of the line
+        // Elimina primele două caractere ale liniei
         editor.replaceRange(
             "",
             { line: cursor.line, ch: 0 },
@@ -511,7 +511,7 @@ document
 
 function leftText(editor) {
     var selection = editor.getSelection();
-    // Check if the selection has <right> at the beginning and </right> at the end
+    // verifica daca selectia are <right> la inceput si </right> la sfarsit
     if (selection.startsWith("<right>") && selection.endsWith("</right>")) {
         // Remove <right> and </right>
         editor.replaceSelection(selection.slice(7, -8));
@@ -538,22 +538,22 @@ document
 function addBullet(editor, string) {
     var selection = editor.getSelection();
 
-    // Split selection into lines
+    // Împărte selecția în linii
     var selectionLines = selection.split("\n");
 
-    // Keep track if we are removing or adding bullets
+    // Urmăreste dacă eliminăm sau adăugăm bullets
     var isRemoving = selectionLines[0].trim().startsWith(string);
 
-    // Loop through lines
+    // Buclă prin linii
     for (var i = 0; i < selectionLines.length; i++) {
-        // Get the line
+        // obține linia
         var line = selectionLines[i];
 
-        // If removing bullets
+        // Dacă scoatem bullets
         if (isRemoving) {
             line = line.replace(string, "");
         }
-        // If adding bullets
+        // daca adaugam bullets
         else {
             line = string + line;
         }
@@ -622,9 +622,9 @@ editor.addKeyMap({
 function genericHeading(editor, string) {
     var cursor = editor.getCursor();
     var line = editor.getLine(cursor.line);
-    // Check if the line already starts with a heading
+    // Verifica dacă linia începe deja cu un heading
     if (line.startsWith(string)) {
-        // Remove the first characters of the line up to the first space
+        // Elimina primele caractere ale liniei până la primul spațiu
         editor.replaceRange(
             "",
             { line: cursor.line, ch: 0 },
@@ -633,7 +633,7 @@ function genericHeading(editor, string) {
         return;
     }
     if (line.startsWith("#")) {
-        // Remove the first characters of the line up to the first space
+        // Elimina primele caractere ale liniei până la primul spațiu
         editor.replaceRange(
             "",
             { line: cursor.line, ch: 0 },
@@ -696,7 +696,7 @@ editor.addKeyMap({
 
 // Word counter update
 editor.on("change", function (instance) {
-    // Remove HTML tags using a regular expression
+    // Elimina etichetele HTML utilizând o expresie obișnuită
     const cleanText = instance.getValue().replace(/<\/?[^>]+(>|$)/g, '').replace("---", "");
     // Split the cleaned text into words
     const words = cleanText.trim().split(/\s+/);

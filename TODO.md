@@ -2,33 +2,33 @@
 
 - [x] functionalitate de salvare fisier
 - [x] set word warp
-- [x] resolution and aspect ratio
-- [x] export to pdf
-- [x] word count
+- [x] rezoluție și raport de aspect
+- [x] export în pdf
+- [x] numărul de cuvinte
 - [x] CSS styling
-- [x] homepage
-- [x] inject css in pdf
-- [x] save notifications
-- [x] keep CSS when exporting to pdf
+- [x] homepaige
+- [x] css apare si  în format pdf
+- [x] salvam notificările
+- [x] păstram CSS atunci când exportam în pdf
 - [x] implement all the formating
-- [x] new file button
-- [x] dark theme
-- [x] theme switcher
+- [x] buton nou de fișier
+- [x] temă întunecată
+- [x] comutator de teme
 - [x] make a save as button
 - [x] templates button
 - [x] blockcode bar in CSS
 
-## Improvements
+## Îmbunătățiri
 - [x] bold/italic text better
 - [x] language changer
 - [x] improve word bold/italic
-- [x] add icons
-- [x] improve layout for menus and buttons
-- [x] image alignment and size
+- [x] adăugat pictograme
+- [x] îmbunătățiri aspect pentru meniuri și butoane
+- [x] alinierea și dimensiunea imaginii
 - [x] templates
 - [ ] global language/theme changer
 
-## Future Possible Features
+## Caracteristici Posibile Viitoare
 
-- Use a javascript framework like svelte for better code organization, I decided not to use one because it's a small project and I wanted to keep it simple.
-- Make it cross platform by setting system specific paths. (Currently it only works on Windows)
+- Folosirea unui framework javascript ca svelte pentru o mai bună organizare a codului, am decis să nu folosesc unul pentru că este un proiect mic și am vrut să-l păstrez simplu.
+- Facem aplicatia cross platform prin setarea căilor specifice sistemului. (În prezent, funcționează numai pe Windows)

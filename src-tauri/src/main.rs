@@ -1,4 +1,4 @@
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+// impiedică fereastra de consolă suplimentară pe Windows în versiune, NU ELIMINA!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
@@ -10,22 +10,22 @@ fn main() {
 
 #[tauri::command]
 async fn generate_pdf(landscape: bool, input: &str, output: &str) -> Result<String, ()> {
-    // Import the necessary modules
+    // importa modulele necesare
     use html2pdf::html_to_pdf;
     use headless_chrome::types::PrintToPdfOptions;
     use headless_chrome::LaunchOptions;
     use std::path::PathBuf;
     use std::time::Duration;
 
-    // Convert the input and output paths to PathBuf
+    // convertim căile de intrare și ieșire în PathBuf
     let input_path: PathBuf = input.into();
     let output_path: PathBuf = output.into();
 
-    // Set the paper size to A4
+    // setam dimensiunea hârtiei la A4
     let size : f64 = 8.3;
     let size2 : f64 = 11.7;
 
-    // Set the PDF options, launch options, and wait duration
+    // setam opțiunile PDF, opțiunile de lansare și durata de așteptare
     // let pdf_options: PrintToPdfOptions = Default::default();
     let pdf_options: PrintToPdfOptions = PrintToPdfOptions {
         landscape: Some(landscape),
@@ -48,12 +48,12 @@ async fn generate_pdf(landscape: bool, input: &str, output: &str) -> Result<Stri
     let launch_options = LaunchOptions::default();
     let wait_duration = Some(Duration::from_secs(2));
 
-    // Generate the PDF
+    // genereaza PDF
     let result = html_to_pdf(input_path, output_path, pdf_options, launch_options, wait_duration);
 
     match result {
         Ok(()) => Ok("PDF generated successfully!".to_string()),
-        // Print the error if the PDF generation fails
+        // Imprimam eroarea dacă generația PDF eșuează
         Err(err) => {
             println!("Error: {}", err);
             Err(())
@@ -70,7 +70,7 @@ fn read_resource(handle: tauri::AppHandle, name: String) -> String{
 
     let file = std::fs::File::open(&resource_path).unwrap();
     let reader = std::io::BufReader::new(file);
-    // Read the file into a string
+    // citim fișierul într-un string
     let css = reader.lines().collect::<Result<Vec<String>, _>>().unwrap().join("\n");
     css
 }
