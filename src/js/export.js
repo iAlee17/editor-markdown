@@ -3,7 +3,6 @@ async function exportMain() {
 
     let editor_value = editor.getValue();
 
-    // fixeaza o linie nouă pentru a fi mai intuitivă
     editor_value = editor_value.replace(/^\s*[\r\n]+/gm, "\n</br>");
     editor_value = editor_value.replace(/---\s*[\r\n]+/gm, "---");
     editor_value = editor_value.replace(
@@ -13,18 +12,15 @@ async function exportMain() {
 
     let renderd = marked(editor_value);
 
-    // fixeaza deschiderea link-urilor în program în locul browserului
+    // Deschiderea link-urilor în browser
     renderd = renderd.replace(/<a/g, '<a target="_blank"');
 
     document.getElementById("preview").innerHTML = renderd;
 
-    // putem insera CSS scriind un fișier diferit în directorul temp și apoi făcând referire la acesta în fișierul HTML
-    const css = await saveCSS("css_themes/default.css");
-
-    // obtinem elementul de preview
+    const css = await readCSS("css_themes/default.css");
     var preview = document.getElementById("preview");
 
-    // definim HTML boilerplate
+    // Definirea de boilerplate HTML
     html = `
     <!DOCTYPE html>
     <html>
@@ -51,7 +47,7 @@ async function saveTempDir(landscape, html) {
         const tempDirPath = await tempdir();
         let tempFilePath = `${tempDirPath}file.html`;
 
-        // deschidem un dialog de fișier
+        // Deschidem un dialog de tip fișier
         const selection = save({
             filters: [
                 {
@@ -61,7 +57,7 @@ async function saveTempDir(landscape, html) {
             ],
         });
 
-        // salvam fila HTML
+        // Salvam fișierul HTML temporar
         const createDataFile = async () => {
             try {
                 await writeFile(
@@ -76,10 +72,10 @@ async function saveTempDir(landscape, html) {
             } catch (err) {
                 console.error(err);
             }
-        }; // o manipulare a erorilor plictisitoare
+        };
         createDataFile();
 
-        // invoca comanda
+        // Invoca funcția din main.rs
         await invoke("generate_pdf", {
             landscape: landscape,
             input: tempFilePath,
@@ -102,22 +98,19 @@ async function saveTempDir(landscape, html) {
                 }, 3000);
             })
             .catch((err) => {
-                // arata erorile in consola
                 console.error("Error:", err);
             });
     } catch (error) {
-        // arata erorile in consola
         console.error("Error:", error);
     }
 }
 
-async function saveCSS(css_path, _callback) {
+async function readCSS(css_path, _callback) {
     try {
         const content = await invoke("read_resource", { name: css_path });
-        return content; // presupunerea că conținutul este un string
+        return content; // Presupunând că conținutul este un string.
     } catch (error) {
-        // arata erorile in consola
         console.error("Error:", error);
-        return "An error occurred"; // returneaza un string indicand o eroare
+        return "An error occurred";
     }
 }

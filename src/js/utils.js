@@ -15,7 +15,7 @@ change_theme.onclick = function () {
     }
 };
 
-// deschide fereastra file
+// Deschide fereastra file
 document.getElementById("interact-file").addEventListener("click", function () {
     document.getElementById("file-dropdown").style.display = "block";
 });
@@ -30,7 +30,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// deschide fereastra CV
+// Deschide fereastra CV
 document
     .getElementById("interact-cv")
     .addEventListener("click", function () {
@@ -47,7 +47,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// deschide fereastra scrisori
+// Deschide fereastra scrisori
 document
     .getElementById("interact-letter")
     .addEventListener("click", function () {
@@ -64,14 +64,14 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// deschide fereastra about
+// Deschide fereastra about
 document
     .getElementById("interact-about")
     .addEventListener("click", function () {
         document.getElementById("about").style.display = "block";
     });
 
-// deschide youtube dialog
+// Deschide youtube dialog
 const youtubeButtons = document.getElementsByClassName("interact-video");
 
 for (let i = 0; i < youtubeButtons.length; i++) {
@@ -89,7 +89,7 @@ for (let i = 0; i < youtubeButtons.length; i++) {
     });
 }
 
-// deschide dialogul cu imagini
+// Deschide dialogul cu imagini
 const imageButtons = document.getElementsByClassName("interact-image");
 
 for (let i = 0; i < imageButtons.length; i++) {
@@ -107,7 +107,7 @@ for (let i = 0; i < imageButtons.length; i++) {
     });
 }
 
-// obține toate elementele de închidere a butonului și adăuga event listener
+// Obține toate elementele de închidere a butonului și adăuga event listener
 const closeButtons = document.getElementsByClassName("close-button");
 for (let i = 0; i < closeButtons.length; i++) {
     closeButtons[i].addEventListener("click", function () {

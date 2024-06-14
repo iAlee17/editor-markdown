@@ -1,4 +1,4 @@
-// impiedică fereastra de consolă suplimentară pe Windows în versiune, NU ELIMINA!!
+// Impiedică fereastra de consolă pe Windows, NU ELIMINA!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
@@ -10,23 +10,22 @@ fn main() {
 
 #[tauri::command]
 async fn generate_pdf(landscape: bool, input: &str, output: &str) -> Result<String, ()> {
-    // importa modulele necesare
+    // Importăm modulele necesare
     use html2pdf::html_to_pdf;
     use headless_chrome::types::PrintToPdfOptions;
     use headless_chrome::LaunchOptions;
     use std::path::PathBuf;
     use std::time::Duration;
 
-    // convertim căile de intrare și ieșire în PathBuf
+    // Convertim fișierele în PathBuf
     let input_path: PathBuf = input.into();
     let output_path: PathBuf = output.into();
 
-    // setam dimensiunea hârtiei la A4
+    // Setam dimensiunea hârtiei la A4
     let size : f64 = 8.3;
     let size2 : f64 = 11.7;
 
-    // setam opțiunile PDF, opțiunile de lansare și durata de așteptare
-    // let pdf_options: PrintToPdfOptions = Default::default();
+    // Setam opțiunile PDF, opțiunile de lansare și durata de așteptare
     let pdf_options: PrintToPdfOptions = PrintToPdfOptions {
         landscape: Some(landscape),
         display_header_footer: None,
@@ -48,7 +47,7 @@ async fn generate_pdf(landscape: bool, input: &str, output: &str) -> Result<Stri
     let launch_options = LaunchOptions::default();
     let wait_duration = Some(Duration::from_secs(2));
 
-    // genereaza PDF
+    // Genereaza un PDF cu librăria html2pdf
     let result = html_to_pdf(input_path, output_path, pdf_options, launch_options, wait_duration);
 
     match result {
@@ -70,7 +69,8 @@ fn read_resource(handle: tauri::AppHandle, name: String) -> String{
 
     let file = std::fs::File::open(&resource_path).unwrap();
     let reader = std::io::BufReader::new(file);
-    // citim fișierul într-un string
-    let css = reader.lines().collect::<Result<Vec<String>, _>>().unwrap().join("\n");
-    css
+
+    // Citim fișierul într-un string
+    let string = reader.lines().collect::<Result<Vec<String>, _>>().unwrap().join("\n");
+    string
 }

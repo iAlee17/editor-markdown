@@ -420,6 +420,11 @@ iframe {
     padding: 8px 16px;
     border-radius: 4px;
 }
+.dark-mode #info p {
+    color: white;
+    background-color: #2e2e2e;
+    border: 1px solid #595959;
+}
 #popup {
     font-family: "Inter", "Arial", sans-serif;
     font-size: 12px;
@@ -698,6 +703,9 @@ button {
 .dark-mode button {
     color: var(--text-color-dark);
 }
+#preview blockquote {
+    margin-bottom: 0px !important;
+}
 blockquote {
     border-left:4px solid #317cde ;
     padding-left: 16px;
@@ -722,8 +730,4 @@ th {
 td {
     border: 1px solid #cccccc; /* Change the border-color of cells here */
     padding: 8px;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #1616160a;
 }
