@@ -68,6 +68,7 @@ justify {
 blockquote {
     border-left:4px solid #317cde ;
     padding-left: 16px;
+    margin-bottom: 0px !important;
 }
 table {
     border-spacing: 0px;
@@ -89,8 +90,4 @@ th {
 td {
     border: 1px solid #cccccc; /* Change the border-color of cells here */
     padding: 8px;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #1616160a;
 }

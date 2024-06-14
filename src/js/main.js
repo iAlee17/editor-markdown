@@ -48,6 +48,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
             /<\/br>\s*---\s*<\/br>/gm,
             "\n---\n",
         );
+        editor_value = editor_value.replace(/<\/br>>/, ">");
 
         let renderd = marked(editor_value);
 
@@ -271,13 +272,13 @@ function genericFormat(editor, string, length) {
     var selection = editor.getSelection();
     if (selection.length > 1) {
         if (selection.startsWith(string) && selection.endsWith(string)) {
-            // Remove bold
+            // Remove
             editor.replaceSelection(
                 selection.slice(length, length - length * 2)
             );
             return;
         } else {
-            // Add bold
+            // Add
             editor.replaceSelection(string + selection + string);
             return;
         }
@@ -321,52 +322,44 @@ function genericFormat(editor, string, length) {
 
 // Bold
 document.getElementById("btn-bold").addEventListener("click", function () {
-    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "**", 2);
 });
 
 editor.addKeyMap({
     "Ctrl-B": function (editor) {
-        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "**", 2);
     },
 });
 
 // Italic
 document.getElementById("btn-italic").addEventListener("click", function () {
-    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "*", 1);
 });
 
 editor.addKeyMap({
     "Ctrl-I": function (editor) {
-        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "*", 1);
     },
 });
 
 // Code
 document.getElementById("btn-code").addEventListener("click", function () {
-    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "`", 1);
 });
 
 editor.addKeyMap({
     "Ctrl-`": function (editor) {
-        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "`", 1);
     },
 });
 
 // Strikethrough
 document.getElementById("btn-strike").addEventListener("click", function () {
-    // Apeleaza algoritmul de formare generic pentru italic
     genericFormat(editor, "~~", 2);
 });
 
 editor.addKeyMap({
     "Ctrl-Alt-S": function (editor) {
-        // Apeleaza algoritmul de formare generic pentru italic
         genericFormat(editor, "~~", 2);
     },
 });
@@ -511,19 +504,15 @@ document
 
 function leftText(editor) {
     var selection = editor.getSelection();
-    // verifica daca selectia are <right> la inceput si </right> la sfarsit
     if (selection.startsWith("<right>") && selection.endsWith("</right>")) {
-        // Remove <right> and </right>
         editor.replaceSelection(selection.slice(7, -8));
         return;
     }
     if (selection.startsWith("<center>") && selection.endsWith("</center>")) {
-        // Remove <center> and </center>
         editor.replaceSelection(selection.slice(8, -9));
         return;
     }
     if (selection.startsWith("<justify>") && selection.endsWith("</justify>")) {
-        // Remove <justify> and </justify>
         editor.replaceSelection(selection.slice(9, -10));
         return;
     }

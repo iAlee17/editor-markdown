@@ -1,14 +1,7 @@
-// limba implicită este 'en' English
+// Limba implicită este 'en' English
 var currentlanguage = "ro";
 
-// TODO: Schimbarea limbii persistente
-// Obținem elementul localstorage
-// Verificam dacă este gol -> implicit la "en"
-
-// Inițializam scriptul prin setarea limbajului pentru setarea curentă în localstorage
-// Când schimbam tema, luam pe cea curentă și o setam să fie opusul
-
-// Această funcție trebuie chemată o dată la lucru
+// Această funcție trebuie chemată o dată ca să funcționeze
 changelang("ro");
 
 // Obținem valoarea limbii din elementul <select>
@@ -21,8 +14,7 @@ document
     });
 
 // BUG: Limbajul nu este respectat între pagini
-function changelang(lang) {
-    console.log(lang);
+function changelang() {
 
     var styleTag = document.getElementById("language-style");
     if (styleTag) {
