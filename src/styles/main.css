@@ -731,3 +731,19 @@ td {
     border: 1px solid #cccccc; /* Change the border-color of cells here */
     padding: 8px;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(183, 179, 179);
+    border-radius: 4px;
+}
