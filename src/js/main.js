@@ -48,7 +48,12 @@ document.getElementById("btn-preview").addEventListener("click", function () {
             /<\/br>\s*---\s*<\/br>/gm,
             "\n---\n",
         );
+        editor_value = editor_value.replace(/<\/br>---/, "\n---");
         editor_value = editor_value.replace(/<\/br>>/, ">");
+        editor_value = editor_value.replace(/--->/, "---\n>");
+        editor_value = editor_value.replace(/<\/br>```/, "```");
+
+        console.log(editor_value);
 
         let renderd = marked(editor_value);
 
@@ -474,10 +479,10 @@ function centerText(editor) {
 document
     .getElementById("btn-align-right")
     .addEventListener("click", function () {
-        justifyText(editor);
+        rightText(editor);
     });
 
-function justifyText(editor) {
+function rightText(editor) {
     var selection = editor.getSelection();
     editor.replaceSelection("<right>" + selection + "</right>");
 }
