@@ -1,4 +1,4 @@
-// Import module necesare din tauri
+// Importă modulele necesare din tauri
 const { open } = window.__TAURI__.dialog;
 const { save } = window.__TAURI__.dialog;
 const { readTextFile } = window.__TAURI__.fs;
@@ -14,12 +14,12 @@ marked.setOptions({
     breaks: true,
 });
 
-// Toggle preview mode
+// Intră în modul preview
 document.getElementById("btn-preview").addEventListener("click", function () {
     if (PREVIEW_MODE) {
         PREVIEW_MODE = false;
 
-        // obțineți toate elemetele cu clasa "btn-edit" și eliminați clasa inversată
+        // Obțineți toate elemetele cu clasa "btn-edit" și eliminați clasa inversată
         const btnIconElements = document.querySelectorAll(".btn-icon");
         for (const element of btnIconElements) {
             element.classList.remove("inverted");
@@ -41,8 +41,10 @@ document.getElementById("btn-preview").addEventListener("click", function () {
 
         let editor_value = editor.getValue();
 
-        // Fix new line to be more intuitive
+        // Fă în așa fel încât liniile noi să fie mai intuitive
         editor_value = editor_value.replace(/^\s*[\r\n]+/gm, "\n</br>");
+
+        // Excepții
         editor_value = editor_value.replace(/---\s*[\r\n]+/gm, "---");
         editor_value = editor_value.replace(
             /<\/br>\s*---\s*<\/br>/gm,
@@ -52,10 +54,18 @@ document.getElementById("btn-preview").addEventListener("click", function () {
         editor_value = editor_value.replace(/<\/br>>/, ">");
         editor_value = editor_value.replace(/--->/, "---\n>");
         editor_value = editor_value.replace(/<\/br>```/, "```");
+        editor_value = editor_value.replace(/<\/br>#/, "#");
+        editor_value = editor_value.replace(/<\/br>-/, "-");
+        editor_value = editor_value.replace(/<\/br>1./, "1.");
 
         console.log(editor_value);
 
         let renderd = marked(editor_value);
+
+        console.log(renderd);
+
+        renderd = renderd.replace(/<\/code><\/pre>/, "<\/code><\/p>");
+        renderd = renderd.replace(/<pre><code>/, "<p><code>");
 
         // Fix links opening în program în sine în locul browserului
         renderd = renderd.replace(/<a/g, '<a target="_blank"');
@@ -71,7 +81,7 @@ document.getElementById("btn-export").addEventListener("click", function () {
     exportMain();
 });
 
-// Create codemirror editor
+// Inițializează un editor codemirror
 var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
     lineNumbers: false,
     lineWrapping: true,
@@ -84,13 +94,13 @@ editor.setSize("800", "100%");
 
 var data = localStorage.getItem("open");
 
-// verifica dacă datele sunt adevărate și selecteaza fișierul
+// Verifica dacă datele sunt adevărate și selecteaza fișierul
 if (data == "true") {
     selectFileDialog();
     localStorage.setItem("open", false);
 }
 
-// Select file
+// Selectează fișier
 function selectFileDialog() {
     document.getElementById("file-dropdown").style.display = "none";
     const selection = open({
@@ -112,7 +122,6 @@ function selectFileDialog() {
                 .then((response) => {
                     PREVIEW_MODE = false;
 
-                    // Nume fișier la titlu
                     var filename = result.split("\\").pop().split("/").pop();
                     document.getElementById("title").innerHTML = filename;
 
@@ -132,23 +141,21 @@ function selectFileDialog() {
         });
 }
 
-// Open Template
+// Deschide Template
 function openTemplate(template_path) {
-    // Deschide fișierul de la resoruces cu numele dat
     async function openTemplate() {
         try {
             const content = await invoke("read_resource", { name: "templates/" + template_path });
-            return content; // Presupunerea că conținutul este un string
+            return content; // Cu presupunerea că conținutul este un string
         } catch (error) {
-            // Show error in console
             console.error("Error:", error);
-            return "An error occurred"; // Return a string indicating an error occurred
+            return "An error occurred";
         }
     }
 
     let template = openTemplate();
 
-    // inlocuiți conținutul editorului cu conținutul fișierului
+    // Înlocuiți conținutul editorului cu conținutul fișierului
     template
         .then((response) => {
             document.getElementById("btn-preview").classList.remove("btn-edit");
@@ -166,12 +173,12 @@ function openTemplate(template_path) {
 // Quciksave file
 function quicksaveFile() {
     document.getElementById("file-dropdown").style.display = "none";
-    // Verifica dacă fișierul a fost salvat înainte
+    // Verifică dacă fișierul a fost salvat înainte
     if (!sessionStorage.getItem("opened_file_path") ) {
         saveFileDialog();
         return;
     }
-    // verifica dacă stocarea sesiunii este un string
+    // Verifică dacă stocarea sesiunii este un string
     if (sessionStorage.getItem("opened_file_path") == "null") {
         saveFileDialog();
         return;
@@ -369,44 +376,60 @@ editor.addKeyMap({
     },
 });
 
+// Underline
+document.getElementById("btn-underline").addEventListener("click", function () {
+    underlineText(editor);
+});
+
+editor.addKeyMap({
+    "Ctrl-Alt-U": function (editor) {
+        underlineText(editor);
+    },
+});
+
+function underlineText(editor) {
+    var selection = editor.getSelection();
+    editor.replaceSelection("<u>" + selection + "</u>");
+}
+
 // Link
 document.getElementById("btn-link").addEventListener("click", function () {
     linkText(editor);
 });
 
 function linkText(editor) {
-    // Insert link text
+    // Adaugă link text
     var selection = editor.getSelection();
     if (selection.length < 1) {
         return;
     }
 
-    // Insert link URL
+    // Adaugă link URL
     var link = prompt("Enter link URL", "https://");
     if (link == null) {
         return;
     }
 
-    // Insert link
+    // Adaugă link
     editor.replaceSelection("[" + selection + "](" + link + ")");
 }
 
 // Image
 document.getElementById("btn-image").addEventListener("click", function () {
-    insertImage(editor);
+    AdaugăImage(editor);
 });
 
-function insertImage(editor) {
-    // Insert link text
+function AdaugăImage(editor) {
+    // Adaugă link text
     var cursor = editor.getCursor();
 
-    // Insert link URL
+    // Adaugă link URL
     var link = prompt("Enter image URL", "https://");
     if (link == null) {
         return;
     }
 
-    // Insert image
+    // Adaugă image
     editor.replaceSelection('<img src="' + link + '" width="400"></img>');
 }
 
@@ -418,13 +441,13 @@ document
     });
 
 function codeBlock(editor) {
-    // Insert link text
+    // Adaugă link text
     var selection = editor.getSelection();
     if (selection.length < 1) {
         return;
     }
 
-    // Insert link
+    // Adaugă link
     editor.replaceSelection("```\n" + selection + "\n```");
 }
 
@@ -434,7 +457,6 @@ document.getElementById("btn-quote").addEventListener("click", function () {
 });
 
 function blockquote(editor) {
-    // Get current line
     var cursor = editor.getCursor();
     var line = editor.getLine(cursor.line);
 
@@ -448,7 +470,7 @@ function blockquote(editor) {
         );
         return;
     } else {
-        // Insert blockquote
+        // Adaugă blockquote
         editor.replaceRange(
             "> " + line,
             { line: cursor.line, ch: 0 },
@@ -509,6 +531,10 @@ document
 
 function leftText(editor) {
     var selection = editor.getSelection();
+    if (selection.startsWith("<u>") && selection.endsWith("</u>")) {
+        editor.replaceSelection(selection.slice(3, -4));
+        return;
+    }
     if (selection.startsWith("<right>") && selection.endsWith("</right>")) {
         editor.replaceSelection(selection.slice(7, -8));
         return;
@@ -538,7 +564,6 @@ function addBullet(editor, string) {
     // Urmăreste dacă eliminăm sau adăugăm bullets
     var isRemoving = selectionLines[0].trim().startsWith(string);
 
-    // Buclă prin linii
     for (var i = 0; i < selectionLines.length; i++) {
         // obține linia
         var line = selectionLines[i];
@@ -578,9 +603,6 @@ function addNumbered(editor) {
     // Split selection into lines
     var selectionLines = selection.split("\n");
 
-    // Keep track if we are removing or adding bullets
-    var isRemoving = selectionLines[0].trim().startsWith(string);
-
     // Loop through lines
     for (var i = 0; i < selectionLines.length; i++) {
         var number = i + 1;
@@ -588,6 +610,9 @@ function addNumbered(editor) {
 
         // Get the line
         var line = selectionLines[i];
+
+        // Keep track if we are removing or adding bullets
+        var isRemoving = line.trim().startsWith(string);
 
         // If removing bullets
         if (isRemoving) {
@@ -688,14 +713,14 @@ editor.addKeyMap({
     },
 });
 
-// Word counter update
+// Actualizare contor de cuvinte
 editor.on("change", function (instance) {
     // Elimina etichetele HTML utilizând o expresie obișnuită
-    const cleanText = instance.getValue().replace(/<\/?[^>]+(>|$)/g, '').replace("---", "");
-    // Split the cleaned text into words
+    const cleanText = instance.getValue().replace(/<\/?[^>]+(>|$)/g, '').replace("---", "").replace("# ", "");
+    // Împarte textul în cuvinte
     const words = cleanText.trim().split(/\s+/);
-    // Count the number of words
+    // Numără numărul de cuvinte
     const wordCount = words.filter(word => word.length > 0).length;
-    // Set the value
+    // Setează valoarea
     document.getElementById("word-count").innerHTML = wordCount;
 });
