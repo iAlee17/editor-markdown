@@ -14,8 +14,36 @@ marked.setOptions({
     breaks: true,
 });
 
+// Generați HTML pentru a trimite la PDF renderer.
+document.getElementById("btn-export").addEventListener("click", function () {
+    exportMain();
+});
+
+// Inițializează un editor codemirror
+var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+    lineNumbers: false,
+    lineWrapping: true,
+    mode: "markdown",
+});
+
+editor.setSize("800", "100%");
+
+// MARK: File operations
+
+var data = localStorage.getItem("open");
+
+// Verifica dacă datele sunt adevărate și selecteaza fișierul
+if (data == "true") {
+    selectFileDialog();
+    localStorage.setItem("open", false);
+}
+
 // Intră în modul preview
 document.getElementById("btn-preview").addEventListener("click", function () {
+    togglePreview(editor);
+});
+
+function togglePreview(editor) {
     if (PREVIEW_MODE) {
         PREVIEW_MODE = false;
 
@@ -41,31 +69,7 @@ document.getElementById("btn-preview").addEventListener("click", function () {
 
         let editor_value = editor.getValue();
 
-        // Fă în așa fel încât liniile noi să fie mai intuitive
-        editor_value = editor_value.replace(/^\s*[\r\n]+/gm, "\n</br>");
-
-        // Excepții
-        editor_value = editor_value.replace(/---\s*[\r\n]+/gm, "---");
-        editor_value = editor_value.replace(
-            /<\/br>\s*---\s*<\/br>/gm,
-            "\n---\n",
-        );
-        editor_value = editor_value.replace(/<\/br>---/, "\n---");
-        editor_value = editor_value.replace(/<\/br>>/, ">");
-        editor_value = editor_value.replace(/--->/, "---\n>");
-        editor_value = editor_value.replace(/<\/br>```/, "```");
-        editor_value = editor_value.replace(/<\/br>#/, "#");
-        editor_value = editor_value.replace(/<\/br>-/, "-");
-        editor_value = editor_value.replace(/<\/br>1./, "1.");
-
-        console.log(editor_value);
-
         let renderd = marked(editor_value);
-
-        console.log(renderd);
-
-        renderd = renderd.replace(/<\/code><\/pre>/, "<\/code><\/p>");
-        renderd = renderd.replace(/<pre><code>/, "<p><code>");
 
         // Fix links opening în program în sine în locul browserului
         renderd = renderd.replace(/<a/g, '<a target="_blank"');
@@ -74,30 +78,6 @@ document.getElementById("btn-preview").addEventListener("click", function () {
         document.getElementById("preview").style.display = "block";
         editor.getWrapperElement().style.display = "none";
     }
-});
-
-// Generați HTML pentru a trimite la PDF renderer.
-document.getElementById("btn-export").addEventListener("click", function () {
-    exportMain();
-});
-
-// Inițializează un editor codemirror
-var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-    lineNumbers: false,
-    lineWrapping: true,
-    mode: "markdown",
-});
-
-editor.setSize("800", "100%");
-
-// MARK: File operations
-
-var data = localStorage.getItem("open");
-
-// Verifica dacă datele sunt adevărate și selecteaza fișierul
-if (data == "true") {
-    selectFileDialog();
-    localStorage.setItem("open", false);
 }
 
 // Selectează fișier
