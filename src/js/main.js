@@ -71,6 +71,9 @@ function togglePreview(editor) {
 
         let renderd = marked(editor_value);
 
+        renderd = renderd.replace(/<right>/g, '<right><p style="text-align: right;">');
+        renderd = renderd.replace(/<\/right>/g, '</p></right>');
+
         // Fix links opening în program în sine în locul browserului
         renderd = renderd.replace(/<a/g, '<a target="_blank"');
 

@@ -58,10 +58,6 @@ p {
     margin: 1rem;
     padding: 0;
 }
-right {
-    display: flex;
-    justify-content: flex-end;
-}
 justify {
     display: flex;
     text-align: justify;
