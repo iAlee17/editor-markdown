@@ -154,7 +154,7 @@ iframe {
     width: 827px;
     background-size: contain;
     box-shadow: 0px 0px 2px 1px #15151533;
-    padding: 60px;
+    padding: 44px 60px 60px 60px;
     font-family: "Inter", sans-serif;
     font-size: 16px !important;
     border-radius: 4px;
@@ -175,6 +175,9 @@ iframe {
 .CodeMirror-lines {
     padding: 60px;
 }
+/* .CodeMirror-line {
+    padding: 0px !important;
+} */
 .CodeMirror {
     overflow: hidden;
     font-size: 16px !important;
@@ -685,10 +688,6 @@ p {
     margin: 0;
     padding: 0;
 }
-right {
-    display: flex;
-    justify-content: flex-end;
-}
 justify {
     display: flex;
     text-align: justify;
@@ -705,6 +704,10 @@ button {
 }
 #preview blockquote {
     margin-bottom: 0px !important;
+}
+#preview p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 blockquote {
     border-left:4px solid #317cde ;

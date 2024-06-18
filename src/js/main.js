@@ -71,6 +71,9 @@ function togglePreview(editor) {
 
         let renderd = marked(editor_value);
 
+        renderd = renderd.replace(/<right>/g, '<right><p style="text-align: right;">');
+        renderd = renderd.replace(/<\/right>/g, '</p></right>');
+
         // Fix links opening în program în sine în locul browserului
         renderd = renderd.replace(/<a/g, '<a target="_blank"');
 
@@ -501,7 +504,6 @@ function justifyText(editor) {
     editor.replaceSelection("<justify>" + selection + "</justify>");
 }
 
-
 // Align Left
 document
     .getElementById("btn-align-left")
@@ -529,6 +531,24 @@ function leftText(editor) {
     }
 }
 
+// Break
+document.getElementById("btn-break").addEventListener("click", function () {
+    breakText(editor);
+});
+
+function breakText(editor) {
+    // Add a break </br> at cursor
+    var cursor = editor.getCursor();
+    editor.replaceRange("\n</br>\n\n", cursor);
+}
+
+editor.addKeyMap({
+    "Ctrl-R": function (editor) {
+        breakText(editor);
+    },
+});
+
+// Listă
 document
     .getElementById("btn-list-bullet")
     .addEventListener("click", function () {
