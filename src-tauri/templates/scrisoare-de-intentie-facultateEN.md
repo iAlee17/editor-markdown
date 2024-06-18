@@ -1,7 +1,7 @@
-**Name and surname:** `Delete and write here'
-**Phone:** `Delete and write here'
-**E-mail:** `Delete and write here'
-**Date:** `Delete and write here'
+**Name and surname:** `Delete and write here`
+**Phone:** `Delete and write here`
+**E-mail:** `Delete and write here`
+**Date:** `Delete and write here`
 
 <center>Dear Madam/Sir,</center>
 

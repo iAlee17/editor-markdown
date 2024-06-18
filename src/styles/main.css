@@ -706,6 +706,10 @@ button {
 #preview blockquote {
     margin-bottom: 0px !important;
 }
+#preview p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
 blockquote {
     border-left:4px solid #317cde ;
     padding-left: 16px;

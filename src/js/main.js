@@ -501,7 +501,6 @@ function justifyText(editor) {
     editor.replaceSelection("<justify>" + selection + "</justify>");
 }
 
-
 // Align Left
 document
     .getElementById("btn-align-left")
@@ -529,6 +528,24 @@ function leftText(editor) {
     }
 }
 
+// Break
+document.getElementById("btn-break").addEventListener("click", function () {
+    breakText(editor);
+});
+
+function breakText(editor) {
+    // Add a break </br> at cursor
+    var cursor = editor.getCursor();
+    editor.replaceRange("\n</br>\n\n", cursor);
+}
+
+editor.addKeyMap({
+    "Ctrl-R": function (editor) {
+        breakText(editor);
+    },
+});
+
+// Listă
 document
     .getElementById("btn-list-bullet")
     .addEventListener("click", function () {
